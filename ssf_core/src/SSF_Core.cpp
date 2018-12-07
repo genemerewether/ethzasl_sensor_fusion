@@ -233,7 +233,7 @@ void SSF_Core::imuCallback(const sensor_msgs::ImuConstPtr & msg)
 
   msgImuUpdate_.header = msgPose_.header;
   StateBuffer_[(unsigned char)(idx_state_ - 1)].toImuStateUpdateMsg(msgImuUpdate_);
-  pubPoseCrtl_.publish(msgImuUpdate_);
+  pubImuUpdate_.publish(msgImuUpdate_);
 
   seq++;
 }
@@ -321,7 +321,7 @@ void SSF_Core::stateCallback(const sensor_fusion_comm::ExtEkfConstPtr & msg)
 
   msgImuUpdate_.header = msgPose_.header;
   StateBuffer_[(unsigned char)(idx_state_ - 1)].toImuStateUpdateMsg(msgImuUpdate_);
-  pubPoseCrtl_.publish(msgImuUpdate_);
+  pubImuUpdate_.publish(msgImuUpdate_);
 
   seq++;
 }
