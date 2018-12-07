@@ -39,6 +39,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <sensor_fusion_comm/ExtState.h>
 #include <sensor_fusion_comm/DoubleArrayStamped.h>
 #include <geometry_msgs/PoseWithCovarianceStamped.h>
+#include <mav_msgs/ImuStateUpdate.h>
 
 #define N_STATE 25 /// error state size
 
@@ -91,6 +92,10 @@ public:
   /// assembles an ExtState message from the state
   /** it does not set the header */
   void toExtStateMsg(sensor_fusion_comm::ExtState & state);
+
+  /// assembles an ImuStateUpdate message from the state
+  /** it does not set the header */
+  void toImuStateUpdateMsg(mav_msgs::ImuStateUpdate & state);
 
   /// assembles a DoubleArrayStamped message from the state
   /** it does not set the header */

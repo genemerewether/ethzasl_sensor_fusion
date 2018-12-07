@@ -1,19 +1,19 @@
 scale_init: 1
-fixed_scale: 0
+fixed_scale: 1
 fixed_bias: 0
-noise_acc: 0.083
-noise_accbias: 0.0083
-noise_gyr: 0.0013
-noise_gyrbias: 0.00013
+noise_acc: 0.05
+noise_accbias: 0.05
+noise_gyr: 0.05
+noise_gyrbias: 0.05
 noise_scale: 0.0
 noise_qwv: 0.0
 noise_qci: 0.0
 noise_pic: 0.0
-delay: 0.02
-meas_noise1: 0.01
-meas_noise2: 0.02
+delay: 0.001
+meas_noise1: 0.00001
+meas_noise2: 0.00001
 
-data_playback: False
+data_playback: True
 
 # initialization of camera w.r.t. IMU
 init/q_ci/w: 1.0
@@ -31,5 +31,5 @@ init/q_wv/x: 0.0
 init/q_wv/y: 0.0
 init/q_wv/z: 0.0
 
-use_fixed_covariance: false
+use_fixed_covariance: true
 measurement_world_sensor: true  # selects if sensor measures its position w.r.t. world (true, e.g. Vicon) or the position of the world coordinate system w.r.t. the sensor (false, e.g. ethzasl_ptam)

@@ -37,6 +37,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include <geometry_msgs/Quaternion.h>
 #include <geometry_msgs/Point.h>
+#include <geometry_msgs/Vector3.h>
 
 namespace eigen_conversions
 {
@@ -77,6 +78,25 @@ template<class Derived, class Point>
     Point point;
     vector3dToPoint(vec, point);
     return point;
+  }
+
+/// copies an eigen 3d vector to a Vector3 struct. Vector3 has to have members x,y,z!
+template<class Derived, class Vector>
+  inline void vector3dToVector(const Eigen::MatrixBase<Derived> & vec, Vector & vector)
+  {
+    EIGEN_STATIC_ASSERT_VECTOR_SPECIFIC_SIZE(Derived, 3);
+    vector.x = vec[0];
+    vector.y = vec[1];
+    vector.z = vec[2];
+  }
+
+/// copies an eigen 3d vector to a 3d Vector struct. vector has to have members x,y,z!
+template<class Derived, class Vector>
+  inline Vector vector3dToVector(const Eigen::MatrixBase<Derived> & vec)
+  {
+    Vector vector;
+    vector3dToVector(vec, vector);
+    return vector;
   }
 
 }

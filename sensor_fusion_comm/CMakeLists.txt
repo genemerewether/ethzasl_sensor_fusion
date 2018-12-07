@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(sensor_fusion_comm)
 
-find_package(catkin REQUIRED COMPONENTS geometry_msgs message_generation)
+find_package(catkin REQUIRED COMPONENTS geometry_msgs mav_msgs message_generation)
 
 # Set the build type.  Options are:
 #  Coverage       : w/ debug symbols, w/o optimization, w/ code-coverage
@@ -32,7 +32,7 @@ add_message_files(
 #)
 
 generate_messages(
-  DEPENDENCIES geometry_msgs std_msgs
+  DEPENDENCIES geometry_msgs std_msgs mav_msgs
 )
 # TODO: fill in what other packages will need to use this package
 ## DEPENDS: system dependencies of this project that dependent projects also need
@@ -41,7 +41,7 @@ generate_messages(
 ## LIBRARIES: libraries you create in this project that dependent projects also need
 catkin_package(
     DEPENDS
-    CATKIN_DEPENDS  geometry_msgs
+    CATKIN_DEPENDS  geometry_msgs mav_msgs
     INCLUDE_DIRS # TODO include
     LIBRARIES # TODO
 )

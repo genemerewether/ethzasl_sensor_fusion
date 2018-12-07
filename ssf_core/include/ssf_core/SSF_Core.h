@@ -139,6 +139,9 @@ private:
   ros::Publisher pubCorrect_; ///< publishes corrections for external state propagation
   sensor_fusion_comm::ExtEkf msgCorrect_;
 
+  ros::Publisher pubImuUpdate_; ///< publishes corrections for external state propagation
+  mav_msgs::ImuStateUpdate msgImuUpdate_;
+
   ros::Subscriber subState_; ///< subscriber to external state propagation
   ros::Subscriber subImu_; ///< subscriber to IMU readings
 

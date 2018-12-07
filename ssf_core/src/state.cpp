@@ -87,6 +87,17 @@ void State::toExtStateMsg(sensor_fusion_comm::ExtState & state)
   eigen_conversions::vector3dToPoint(v_, state.velocity);
 }
 
+void State::toImuStateUpdateMsg(mav_msgs::ImuStateUpdate & state)
+{
+  eigen_conversions::vector3dToPoint(p_, state.pose.pose.position);
+  getPoseCovariance(state.pose.covariance);
+  eigen_conversions::quaternionToMsg(q_, state.pose.pose.orientation);
+  eigen_conversions::vector3dToVector(v_, state.twist.twist.linear);
+  
+  eigen_conversions::vector3dToVector(b_w_, state.angular_velocity_bias);
+  eigen_conversions::vector3dToVector(b_a_, state.linear_acceleration_bias);
+}
+
 void State::toStateMsg(sensor_fusion_comm::DoubleArrayStamped & state)
 {
   state.data[0] = p_[0];
