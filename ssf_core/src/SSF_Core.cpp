@@ -221,6 +221,7 @@ void SSF_Core::imuCallback(const sensor_msgs::ImuConstPtr & msg)
 
   predictionMade_ = true;
 
+  /*
   msgPose_.header.stamp = msg->header.stamp;
   msgPose_.header.seq = msg->header.seq;
 
@@ -234,6 +235,7 @@ void SSF_Core::imuCallback(const sensor_msgs::ImuConstPtr & msg)
   msgImuUpdate_.header = msgPose_.header;
   StateBuffer_[(unsigned char)(idx_state_ - 1)].toImuStateUpdateMsg(msgImuUpdate_);
   pubImuUpdate_.publish(msgImuUpdate_);
+  */
 
   seq++;
 }
@@ -318,11 +320,11 @@ void SSF_Core::stateCallback(const sensor_fusion_comm::ExtEkfConstPtr & msg)
   msgPoseCtrl_.header = msgPose_.header;
   StateBuffer_[(unsigned char)(idx_state_ - 1)].toExtStateMsg(msgPoseCtrl_);
   pubPoseCrtl_.publish(msgPoseCtrl_);
-
+  /*
   msgImuUpdate_.header = msgPose_.header;
   StateBuffer_[(unsigned char)(idx_state_ - 1)].toImuStateUpdateMsg(msgImuUpdate_);
   pubImuUpdate_.publish(msgImuUpdate_);
-
+  */
   seq++;
 }
 
@@ -665,6 +667,15 @@ bool SSF_Core::applyCorrection(unsigned char idx_delaystate, const ErrorState & 
   msgState_.header = msgCorrect_.header;
   StateBuffer_[idx].toStateMsg(msgState_);
   pubState_.publish(msgState_);
+
+  msgPose_.header = msgCorrect_.header;
+  StateBuffer_[idx].toPoseMsg(msgPose_);
+  pubPose_.publish(msgPose_);
+
+  msgImuUpdate_.header = msgCorrect_.header;
+  StateBuffer_[idx].toImuStateUpdateMsg(msgImuUpdate_);
+  pubImuUpdate_.publish(msgImuUpdate_);
+
   seq_m++;
 
   return 1;

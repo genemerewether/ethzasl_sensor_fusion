@@ -1,10 +1,11 @@
 scale_init: 1
 fixed_scale: 1
 fixed_bias: 0
-noise_acc: 0.05
-noise_accbias: 0.05
-noise_gyr: 0.05
-noise_gyrbias: 0.05
+fixed_calib: 1
+noise_acc: 0.03
+noise_accbias: 0.03
+noise_gyr: 0.03
+noise_gyrbias: 0.03
 noise_scale: 0.0
 noise_qwv: 0.0
 noise_qci: 0.0

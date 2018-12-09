@@ -1,5 +1,7 @@
 <launch>
     <node name="pose_sensor" pkg="ssf_updates" type="pose_sensor" clear_params="true" output="screen">
+	    <remap from="ssf_core/imu_state_update" to="imu_state_update" />
+
 	    <remap from="ssf_core/imu_state_input" to="imu" />
 	    <remap from="ssf_core/pose_measurement" to="ground_truth/pose_with_covariance" />
 
