@@ -53,7 +53,8 @@ void PoseSensorHandler::subscribe()
 {
   ros::NodeHandle nh("ssf_core");
   subMeasurement_ = nh.subscribe("pose_measurement", 1, &PoseSensorHandler::measurementCallback, this);
-
+  subViconMeasurement_ = nh.subscribe("vicon_pose_measurement", 1, &PoseSensorHandler::viconmeasurementCallback, this);
+  
   measurements->ssf_core_.registerCallback(&PoseSensorHandler::noiseConfig, this);
 
   nh.param("meas_noise1", n_zp_, 0.01);	// default position noise is for ethzasl_ptam
@@ -168,3 +169,20 @@ void PoseSensorHandler::measurementCallback(const geometry_msgs::PoseWithCovaria
   // call update step in core class
   measurements->ssf_core_.applyMeasurement(idx, H_old, r_old, R);
 }
+
+void PoseSensorHandler::viconmeasurementCallback(const geometry_msgs::TransformStampedConstPtr & msg)
+{
+  geometry_msgs::PoseWithCovarianceStampedPtr msgconv(new geometry_msgs::PoseWithCovarianceStamped);
+
+  msgconv->header = msg->header;
+  msgconv->pose.pose.position.x = msg->transform.translation.x;
+  msgconv->pose.pose.position.y = msg->transform.translation.y;
+  msgconv->pose.pose.position.z = msg->transform.translation.z;
+  msgconv->pose.pose.orientation.w = msg->transform.rotation.w;
+  msgconv->pose.pose.orientation.x = msg->transform.rotation.x;
+  msgconv->pose.pose.orientation.y = msg->transform.rotation.y;
+  msgconv->pose.pose.orientation.z = msg->transform.rotation.z;
+
+  measurementCallback(msgconv);
+
+ }
