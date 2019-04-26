@@ -46,6 +46,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <geometry_msgs/PoseWithCovarianceStamped.h>
 #include <sensor_msgs/Imu.h>
 #include <mav_msgs/ImuStateUpdate.h>
+#include "tf/transform_broadcaster.h"
 
 #include <vector>
 #include <ssf_core/state.h>
@@ -153,6 +154,8 @@ private:
   typedef boost::function<void(ssf_core::SSF_CoreConfig& config, uint32_t level)> CallbackType;
   std::vector<CallbackType> callbacks_;
 
+  tf::TransformBroadcaster *tfBroad_;
+  
   /// propagates the state with given dt
   void propagateState(const double dt);
 

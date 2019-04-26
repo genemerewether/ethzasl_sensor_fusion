@@ -66,11 +66,14 @@ SSF_Core::SSF_Core()
   reconfServer_->setCallback(f);
   //register dyn config list
   registerCallback(&SSF_Core::DynConfig, this);
+
+  tfBroad_ = new tf::TransformBroadcaster();
 }
 
 SSF_Core::~SSF_Core()
 {
   delete reconfServer_;
+  delete tfBroad_;
 }
 
 void SSF_Core::initialize(const Eigen::Matrix<double, 3, 1> & p, const Eigen::Matrix<double, 3, 1> & v,
@@ -676,6 +679,16 @@ bool SSF_Core::applyCorrection(unsigned char idx_delaystate, const ErrorState & 
   StateBuffer_[idx].toImuStateUpdateMsg(msgImuUpdate_);
   pubImuUpdate_.publish(msgImuUpdate_);
 
+  tf::Transform tfo;
+  tf::poseMsgToTF(msgPose_.pose.pose, tfo);
+	
+  tf::StampedTransform tfoStamp;
+  tfoStamp.stamp_ = msgPose_.header.stamp;
+  tfoStamp.child_frame_id_ = "ssf-core";
+  tfoStamp.frame_id_ = "world";
+  tfoStamp.setData(tfo);	
+  tfBroad_->sendTransform(tfoStamp);
+  
   seq_m++;
 
   return 1;

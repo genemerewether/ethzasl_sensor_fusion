@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(ssf_updates)
 
-find_package(catkin REQUIRED COMPONENTS roscpp ssf_core geometry_msgs message_generation)
+find_package(catkin REQUIRED COMPONENTS roscpp ssf_core geometry_msgs message_generation sensor_fusion_comm)
 
 # Set the build type.  Options are:
 #  Coverage       : w/ debug symbols, w/o optimization, w/ code-coverage
