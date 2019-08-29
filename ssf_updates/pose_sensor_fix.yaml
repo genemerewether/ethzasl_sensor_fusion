@@ -17,8 +17,8 @@ meas_noise2: 0.02
 data_playback: False
 
 # initialization of camera w.r.t. IMU
-init/q_ci/w: 0.0
-init/q_ci/x: 1.0
+init/q_ci/w: 1.0
+init/q_ci/x: 0.0
 init/q_ci/y: 0.0
 init/q_ci/z: 0.0
 

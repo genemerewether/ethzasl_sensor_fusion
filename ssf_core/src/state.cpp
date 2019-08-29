@@ -92,7 +92,9 @@ void State::toImuStateUpdateMsg(mav_msgs::ImuStateUpdate & state)
   eigen_conversions::vector3dToPoint(p_, state.pose.pose.position);
   getPoseCovariance(state.pose.covariance);
   eigen_conversions::quaternionToMsg(q_, state.pose.pose.orientation);
-  eigen_conversions::vector3dToVector(v_, state.twist.twist.linear);
+  Eigen::Matrix<double, 3, 3> R = q_.toRotationMatrix();
+  Eigen::Matrix<double, 3, 1> v_b = R * v_;
+  eigen_conversions::vector3dToVector(v_b, state.twist.twist.linear);
   
   eigen_conversions::vector3dToVector(b_w_, state.angular_velocity_bias);
   eigen_conversions::vector3dToVector(b_a_, state.linear_acceleration_bias);
